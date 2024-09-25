@@ -1,0 +1,14 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::0
+character.gd::GDScript::-1::1707179290::0::1::::<>Node2D<>::
+game.tscn::PackedScene::1768986849745668317::1727015131::0::1::::<><>::uid://baj4xukvf568b::::res://sprites/space.png<>uid://f3wmg8detyai::::res://tileset/tileset.tres<>res://pathfind_astar.gd<>res://character.gd<>uid://bjsmfha28ro00::::res://sprites/sparkle.png<>uid://vsempfpeu7wr::::res://sprites/character.png
+icon.webp::CompressedTexture2D::4859145719176482736::1711378810::1726959273::1::::<><>::
+pathfind_astar.gd::GDScript::-1::1727012910::0::1::::<>TileMap<>::
+README.md::TextFile::-1::1711378810::0::1::::<><>::
+::res://sprites/::1726959273
+character.png::CompressedTexture2D::1511389609731655421::1711378810::1726959273::1::::<><>::
+space.png::CompressedTexture2D::2406803016406767807::1711378810::1726959273::1::::<><>::
+sparkle.png::CompressedTexture2D::3056016977826182299::1711378810::1726959273::1::::<><>::
+::res://tileset/::1727199647
+tileset.tres::TileSet::410104364932629344::1727199647::0::1::::<><>::uid://c11typow28mkc::::res://tileset/tilesheet.png
+tilesheet.png::CompressedTexture2D::6652622416011364222::1711378810::1726959273::1::::<><>::

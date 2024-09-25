@@ -1,0 +1,71 @@
+[gd_scene load_steps=10 format=3 uid="uid://d2oql0lxxdwaa"]
+
+[ext_resource type="Script" path="res://mob.gd" id="1_y6dwv"]
+[ext_resource type="Texture2D" uid="uid://bujmdu4f8pgib" path="res://art/enemyWalking_1.png" id="2_xi8yb"]
+[ext_resource type="Texture2D" uid="uid://bs7e2ob00mclr" path="res://art/enemyWalking_2.png" id="3_p3pi2"]
+[ext_resource type="Texture2D" uid="uid://dkau8nwdf4igl" path="res://art/enemySwimming_1.png" id="4_6wsvk"]
+[ext_resource type="Texture2D" uid="uid://bwen26pmqk8s7" path="res://art/enemySwimming_2.png" id="5_tadoa"]
+[ext_resource type="Texture2D" uid="uid://dwbfp28tmlesf" path="res://art/cabezaWalking1t.png" id="6_oe1i2"]
+[ext_resource type="Texture2D" uid="uid://3awflbb5edl2" path="res://art/cabezaWalking2t.png" id="7_ag4tm"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xcb88"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_xi8yb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_p3pi2")
+}],
+"loop": true,
+"name": &"caminar",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_6wsvk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_tadoa")
+}],
+"loop": true,
+"name": &"nadar",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_oe1i2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ag4tm")
+}],
+"loop": true,
+"name": &"volar",
+"speed": 3.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vgu2w"]
+radius = 17.5
+height = 51.0
+
+[node name="Mob" type="RigidBody2D" groups=["mobs"]]
+position = Vector2(105, 80)
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_y6dwv")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-0.250002, 0)
+scale = Vector2(0.855, 0.85)
+sprite_frames = SubResource("SpriteFrames_xcb88")
+animation = &"volar"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+scale = Vector2(2, 2)
+shape = SubResource("CapsuleShape2D_vgu2w")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

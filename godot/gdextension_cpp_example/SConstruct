@@ -1,0 +1,33 @@
+#!/usr/bin/env python
+import os
+import sys
+
+env = SConscript("godot-cpp/SConstruct")
+
+# Detect if MinGW is used
+if "use_mingw" in ARGUMENTS and ARGUMENTS["use_mingw"] == "yes":
+    env["CC"] = "gcc"
+    env["CXX"] = "g++"
+    env["LINK"] = "g++"
+    env.Append(CCFLAGS=["-std=c++17"])  # Usa C++17 para Godot 4.x
+    env.Append(LINKFLAGS=["-static-libgcc", "-static-libstdc++"])
+
+# Add source path
+env.Append(CPPPATH=["src/"])
+sources = Glob("src/*.cpp")
+
+# Compile based on platform
+if env["platform"] == "macos":
+    library = env.SharedLibrary(
+        "probando_tracking/bin/libgdexample.{}.{}.framework/libgdexample.{}.{}".format(
+            env["platform"], env["target"], env["platform"], env["target"]
+        ),
+        source=sources,
+    )
+else:
+    library = env.SharedLibrary(
+        "probando_tracking/bin/libgdexample{}{}".format(env["suffix"], env["SHLIBSUFFIX"]),
+        source=sources,
+    )
+
+Default(library)

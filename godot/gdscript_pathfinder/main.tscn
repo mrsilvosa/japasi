@@ -1,0 +1,92 @@
+[gd_scene load_steps=21 format=3 uid="uid://bw58f4thn54cp"]
+
+[ext_resource type="Script" path="res://main_code.gd" id="1_2x315"]
+[ext_resource type="Texture2D" uid="uid://ba0bpro11w4sr" path="res://suelo2_1.png" id="1_dtqxi"]
+[ext_resource type="Script" path="res://tile_suelo.gd" id="2_c68jg"]
+[ext_resource type="Texture2D" uid="uid://m3hkvrqkrkyk" path="res://marco.png" id="2_sp62f"]
+[ext_resource type="Texture2D" uid="uid://c1u5r4pgwwycf" path="res://obstaculo.png" id="3_oijmt"]
+[ext_resource type="Script" path="res://tile_marco.gd" id="4_s7g2a"]
+[ext_resource type="Texture2D" uid="uid://b1xqvcr5uss52" path="res://start.png" id="8_sshp0"]
+[ext_resource type="Script" path="res://character_body_2d.gd" id="9_2jmne"]
+[ext_resource type="Texture2D" uid="uid://oqliql7jn6qv" path="res://finish.png" id="9_qffud"]
+[ext_resource type="Texture2D" uid="uid://cbcbi1u3oydnr" path="res://icon.svg" id="10_qyxko"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_s7llf"]
+texture = ExtResource("1_dtqxi")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0grsw"]
+texture = ExtResource("3_oijmt")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_vq22g"]
+tile_size = Vector2i(128, 128)
+sources/0 = SubResource("TileSetAtlasSource_s7llf")
+sources/1 = SubResource("TileSetAtlasSource_0grsw")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6ytcu"]
+texture = ExtResource("2_sp62f")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_w2jev"]
+tile_size = Vector2i(128, 128)
+sources/2 = SubResource("TileSetAtlasSource_6ytcu")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6pdta"]
+texture = ExtResource("8_sshp0")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uqlcn"]
+texture = ExtResource("9_qffud")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_hn0vv"]
+tile_size = Vector2i(128, 128)
+sources/0 = SubResource("TileSetAtlasSource_6pdta")
+sources/1 = SubResource("TileSetAtlasSource_uqlcn")
+
+[sub_resource type="GDScript" id="GDScript_ny01v"]
+resource_name = "tile_inicio_fin"
+script/source = "extends TileMapLayer
+
+enum start_finish_id { START=0, FINISH};
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nf2mx"]
+size = Vector2(128, 128)
+
+[node name="Main" type="Node2D"]
+
+[node name="MainCode" type="Node2D" parent="."]
+script = ExtResource("1_2x315")
+
+[node name="TileSuelo" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_vq22g")
+script = ExtResource("2_c68jg")
+
+[node name="TileMarco" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_w2jev")
+script = ExtResource("4_s7g2a")
+
+[node name="TileInicioFin" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_hn0vv")
+script = SubResource("GDScript_ny01v")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(192, 192)
+script = ExtResource("9_2jmne")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_nf2mx")
+
+[node name="Icon" type="Sprite2D" parent="CharacterBody2D"]
+texture = ExtResource("10_qyxko")

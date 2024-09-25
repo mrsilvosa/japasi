@@ -1,0 +1,4 @@
+-elección del jugador que empieza sería por votación
+de los mismos jugadores, para armar quilombo de primeras.
+-relativamente pocos turnos pero naturales, no forzados.
+-todos juegan su turno, y al final de todos se juega minijuego
