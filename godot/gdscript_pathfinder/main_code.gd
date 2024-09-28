@@ -9,8 +9,8 @@ var directory = {};
 var last_tile = Vector2i(0,0);  # Almacena la última celda donde se dibujó el marco
 
 const CELL_SIZE = Vector2i(128, 128);
-const BASE_LINE_WIDTH = 10.0;
-const DRAW_COLOR = Color.BLACK * Color(1, 1, 1, 0.5);
+const BASE_LINE_WIDTH = 5.0;
+const DRAW_COLOR = Color.BLACK #* Color(1, 1, 1, 0.502);
 
 # The object for pathfinding on 2D grids.
 var _astar = Heuristica.new();
@@ -26,7 +26,7 @@ var _path = PackedVector2Array();
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
+	set_as_top_level(true);
 	for x in range(grid_size.x):
 		for y in range(grid_size.y):
 			directory[str(Vector2i(x, y))] = {
@@ -68,13 +68,15 @@ func _process(delta) -> void:
 		last_tile = tile;
 		#print(directory[str(tile)]);
 	# Siguiente instrucción:
-	
+
+# Canvas llama por sistema al _draw() de todos sus hijos, es como un _process(delta)
 func _draw():
+	# Supongo que borra todo y redibuja, si path está vacío no dibujamos nada y listo.
 	if _path.is_empty():
 		return;
-	
-	var last_point = _path[0]; # debería ser la siguiente posición a ir desde el principio
-	for index in range(1, len(_path)):
+	# Le decimos que cuando se llame (se llamará si lo pido por queue_redraw() ) dibuje el trayecto en pantalla
+	var last_point = self.base_layer.map_to_local(_start_point);
+	for index in range(0, len(_path)):
 		var current_point = _path[index];
 		draw_line(last_point, current_point, DRAW_COLOR, BASE_LINE_WIDTH, true);
 		draw_circle(current_point, BASE_LINE_WIDTH * 2.0, DRAW_COLOR);
@@ -93,6 +95,7 @@ func is_point_in_boundries(local_position):
 	var map_position = self.base_layer.local_to_map(local_position);
 	return _astar.is_in_boundaries(map_position);
 
+# Limpia los dibujos que ya trazamos cuando hicimos el camino
 func clear_path():
 	if not _path.is_empty():
 		_path.clear();

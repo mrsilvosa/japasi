@@ -2,10 +2,10 @@ extends CharacterBody2D
 
 enum State { IDLE, FOLLOW };
 
-const MASS = 10.0
-const ARRIVE_DISTANCE = 10.0
+const MASS = 5.0
+const ARRIVE_DISTANCE = 5.0
 
-@export var speed: float = 400.0
+@export var speed: float = 450.0
 
 var _state = State.IDLE
 var _velocity = Vector2()
